@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#050c12">
+<title>BIBLE ESCAPE — EP.02 HARD</title>
+<style>
+:root{--bg:#050c12;--panel:#0a1821;--panel2:#102631;--text:#f4f0e8;--muted:#91a7b1;--line:#24424f;--gold:#e8c778;--red:#ff7668;--green:#88d4b8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:radial-gradient(circle at 50% -10%,#1b3b4b,#07131b 38%,#020609);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;min-height:100vh;overflow-x:hidden}
+button{font:inherit}.app{max-width:520px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 15px calc(92px + env(safe-area-inset-bottom))}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:13px 2px;background:linear-gradient(#061018f7,#061018c9,transparent)}
+.eyebrow{font-size:10px;letter-spacing:.2em;color:var(--gold);font-weight:900}.title{font-size:17px;font-weight:900;margin-top:3px}.timer{font-variant-numeric:tabular-nums;border:1px solid var(--line);border-radius:999px;padding:8px 11px;background:#07131be8;font-weight:900}.timer.danger{color:#ffd4cf;border-color:#8d443b;animation:blink .7s infinite}@keyframes blink{50%{opacity:.55}}
+.screen{display:none}.screen.active{display:block;animation:enter .3s ease}@keyframes enter{from{opacity:0;transform:translateY(8px)}}
+.card{background:linear-gradient(145deg,#102630e8,#08151de8);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 18px 55px #0008}.pad{padding:20px}.lead{font-size:20px;line-height:1.5;font-weight:800}.muted{color:var(--muted);line-height:1.65}.gameimg{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#0d222d}.placeholder{aspect-ratio:1/1;height:auto;display:grid;place-items:center;position:relative;background:linear-gradient(145deg,#0e222d,#183747 50%,#08171f);color:#a9bac2;text-align:center}.placeholder:before{content:"";position:absolute;inset:14px;border:1px dashed #52717f;border-radius:16px}.ph{z-index:1;font-weight:900;letter-spacing:.12em}.ph small{display:block;font-weight:500;letter-spacing:.04em;margin-top:7px;color:#78909b}
+.btn{width:100%;border:0;border-radius:16px;padding:15px;margin-top:10px;background:var(--gold);color:#172027;font-weight:900}.btn.secondary{background:#112934;color:var(--text);border:1px solid var(--line)}.btn.red{background:#47221e;color:#ffd7d2;border:1px solid #7a3931}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.stat{background:#091923;border:1px solid var(--line);border-radius:14px;padding:9px;text-align:center;font-size:11px;color:var(--muted)}.stat b{display:block;color:var(--text);font-size:15px;margin-top:3px}
+.bottom{position:fixed;z-index:25;left:50%;bottom:0;transform:translateX(-50%);width:min(520px,100%);display:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:9px 15px calc(9px + env(safe-area-inset-bottom));background:#061018ed;border-top:1px solid var(--line);backdrop-filter:blur(14px)}.bottom button{border:0;border-radius:13px;padding:11px 3px;background:#102631;color:var(--text);font-weight:800}
+.room{position:relative;overflow:hidden}.hot{position:absolute;width:55px;height:55px;border-radius:50%;border:1px solid #e8c7788f;background:#e8c77818;color:var(--gold);font-size:23px;box-shadow:0 0 0 8px #e8c7780c;animation:pulse 1.8s infinite}@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 0 15px #e8c77800}}
+#stern{left:12%;bottom:17%}#rope{right:15%;top:29%}#clothSpot{left:44%;top:43%}
+.modal{position:fixed;z-index:60;inset:0;background:#000c;display:none;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{width:min(520px,100%);max-height:91vh;overflow:auto;border-radius:28px 28px 0 0;background:#091820;border:1px solid var(--line);padding:20px 17px calc(25px + env(safe-area-inset-bottom));box-shadow:0 -30px 80px #000}.sheet h2{margin:5px 0 10px}.notice{border-left:3px solid var(--gold);background:#11252e;border-radius:9px;padding:13px 14px;margin:12px 0;line-height:1.55}.choices{display:grid;gap:9px}.choices button{border:1px solid var(--line);border-radius:15px;background:#102731;color:var(--text);padding:14px;font-weight:850}
+.dragstage{height:300px;border:1px solid var(--line);border-radius:19px;position:relative;overflow:hidden;background:#0d222c;margin:12px 0;touch-action:none}.cloth{position:absolute;left:15%;top:24%;width:70%;height:52%;border-radius:20px;background:repeating-linear-gradient(135deg,#43545a,#43545a 14px,#35464d 14px,#35464d 28px);display:grid;place-items:center;font-weight:900;color:#c5d0d4;touch-action:none;z-index:3;box-shadow:0 15px 35px #0008}.under{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:35px;color:var(--gold);font-weight:900;font-size:18px;line-height:1.6}
+.pillowstage{height:280px;border-radius:18px;border:1px solid var(--line);position:relative;background:#102631;overflow:hidden;touch-action:none}.lock-under{position:absolute;left:32%;top:38%;width:36%;height:30%;border:1px solid #896f3d;border-radius:15px;background:#181b19;display:grid;place-items:center;color:var(--gold);font-weight:900}.pillow{position:absolute;left:21%;top:28%;width:58%;height:42%;border-radius:50% 45% 48% 52%;background:#c7b99d;color:#342f28;display:grid;place-items:center;font-weight:900;z-index:4;box-shadow:0 15px 30px #0008;touch-action:none}
+.order{display:grid;gap:8px;margin:12px 0}.orderitem{padding:13px;border:1px solid var(--line);border-radius:14px;background:#102630;display:flex;align-items:center;gap:10px;touch-action:none}.handle{font-size:20px;color:var(--gold)}.orderitem.dragging{opacity:.45}
+.fragments{position:relative;height:370px;border:1px solid var(--line);border-radius:18px;background:#0c2029;margin:12px 0;touch-action:none}.frag{position:absolute;width:125px;min-height:70px;padding:10px;background:#d7c69e;color:#332d24;border-radius:5px;box-shadow:0 9px 20px #0008;font-weight:800;touch-action:none;display:grid;place-items:center;text-align:center}.slot{position:absolute;border:1px dashed #77909a;border-radius:7px;width:125px;height:72px}.slot:nth-child(1){left:15px;top:18px}.slot:nth-child(2){right:15px;top:18px}.slot:nth-child(3){left:50%;transform:translateX(-50%);top:112px}.slot:nth-child(4){left:15px;top:207px}.slot:nth-child(5){right:15px;top:207px}
+.flashlightStage{height:330px;border-radius:18px;border:1px solid var(--line);background:#020506;position:relative;overflow:hidden;touch-action:none}.hiddenWriting{position:absolute;inset:0;display:grid;place-items:center;color:#cbb06d;font-weight:900;font-size:25px;letter-spacing:.18em}.darkMask{position:absolute;inset:0;background:#000;pointer-events:none;mask-image:radial-gradient(circle 60px at var(--x,50%) var(--y,50%),transparent 0 58px,#000 68px);-webkit-mask-image:radial-gradient(circle 60px at var(--x,50%) var(--y,50%),transparent 0 58px,#000 68px)}.lamp{position:absolute;left:18px;bottom:18px;padding:11px 14px;border-radius:50%;background:#d7b65f;color:#19140b;font-size:26px;z-index:5;touch-action:none}
+.progress{height:8px;background:#061018;border-radius:99px;overflow:hidden}.progress span{height:100%;display:block;background:var(--red);transition:.3s}.center{text-align:center}.result{font-size:38px;font-weight:950;color:var(--gold)}.hidden{display:none!important}.shake{animation:shake .28s}@keyframes shake{25%{transform:translateX(-7px)}50%{transform:translateX(7px)}75%{transform:translateX(-4px)}}.penalty{position:fixed;z-index:100;left:50%;top:18%;transform:translateX(-50%);font-size:32px;font-weight:950;color:#ff8a7d;text-shadow:0 4px 20px #000;animation:pen .9s forwards;pointer-events:none}@keyframes pen{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}25%{opacity:1;transform:translate(-50%,0) scale(1.1)}100%{opacity:0;transform:translate(-50%,-20px)}} 
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div><div class="eyebrow">BIBLE ESCAPE · EP.02 · HARD</div><div class="title">폭풍 속의 배</div></div><div id="timer" class="timer">08:00</div></header>
+
+<section id="intro" class="screen active">
+<div class="card"><img class="gameimg" src="./img/COVER_HARD.JPG" alt="폭풍 속의 배 HARD 커버"><div class="pad">
+<div class="eyebrow">HARD MODE</div><p class="lead">세 사람은 같은 폭풍을 기록했다.<br>그러나 모든 기록이 같은 것을 말하지는 않는다.</p>
+<p class="muted">성경 기록을 비교하고, 물건을 직접 움직이고, 숨겨진 단서를 찾아 탈출하세요. 오답은 30초를 잃습니다.</p>
+<button class="btn" onclick="start()">8분 안에 승선하기</button></div></div>
+</section>
+
+<section id="game" class="screen">
+<div class="card room">
+<img class="gameimg" src="./img/BOAT_HARD.JPG" alt="폭풍 속 배 내부">
+<button id="stern" class="hot" onclick="sternPuzzle()">+</button>
+<button id="rope" class="hot" onclick="ropePuzzle()">+</button>
+<button id="clothSpot" class="hot" onclick="clothPuzzle()">+</button>
+</div>
+<div class="stats"><div class="stat">단서<b><span id="clues">0</span>/8</b></div><div class="stat">성구 확인<b><span id="verses">0</span>/9</b></div><div class="stat">힌트<b><span id="hints">0</span>/3</b></div></div>
+<div class="card pad"><div class="eyebrow">현재 상황</div><p id="story" class="lead">배가 크게 흔들린다. 눈에 보이는 것만 눌러서는 탈출할 수 없다.</p><div class="progress"><span id="water" style="width:24%"></span></div>
+<button id="orderBtn" class="btn secondary hidden" onclick="orderPuzzle()">젖은 사건 카드 조사</button>
+<button id="fragmentBtn" class="btn secondary hidden" onclick="fragmentPuzzle()">찢어진 기록 조립</button>
+<button id="lightBtn" class="btn secondary hidden" onclick="lightPuzzle()">어두운 선실 조사</button>
+<button id="finalBtn" class="btn hidden" onclick="finalPuzzle()">마지막 세 개의 문</button></div>
+</section>
+
+<section id="bad" class="screen"><div class="card"><img class="gameimg" src="./img/STORM_BAD_END.JPG" alt="시간 초과 배드 엔딩"><div class="pad center"><div class="eyebrow">TIME OVER · BAD ENDING</div><h2>폭풍에 휩쓸렸습니다</h2><div class="result">00:00</div><p class="lead">눈앞의 파도에만 매달리는 동안<br>시간이 모두 지나버렸다.</p><div class="notice">같은 사건을 기록한 세 사람의 기록을 다시 비교해 보세요. 작은 차이가 다음 단서가 됩니다.</div><p class="muted" id="badStats"></p><button class="btn" onclick="location.reload()">다시 도전</button></div></div></section>
+
+<section id="ending" class="screen"><div class="card"><img class="gameimg" src="./img/CALM_HARD_END.JPG" alt="폭풍이 지나간 뒤의 고요한 바다"><div class="pad center"><div class="eyebrow">ESCAPED · HARD CLEAR</div><h2>폭풍 속의 배</h2><div id="clearTime" class="result">00:00</div><p class="muted" id="endStats"></p><div class="notice">세 기록의 표현은 조금씩 달랐지만 마지막에 반복해서 드러난 것은 제자들의 <b>믿음</b>이었습니다.<br><br>마태복음 8:23-27 · 마가복음 4:35-41 · 누가복음 8:22-25</div><button class="btn" onclick="location.reload()">다시 플레이</button></div></div></section>
+</div>
+
+<nav id="nav" class="bottom"><button onclick="note('화면 속 물건을 누르는 것 외에도 직접 움직여 보세요.')">🔎<br>조사</button><button onclick="inventory()">🎒<br>단서</button><button onclick="hint()">💡<br>힌트</button></nav>
+<div id="modal" class="modal" onclick="if(event.target===this)closeM()"><div id="sheet" class="sheet"></div></div>
+
+<script>
+let S={left:480,start:0,timer:null,timeout:false,clues:new Set(),verses:new Set(),hints:0,cloth:false,pillow:false,order:false,fragments:false,light:false,rope:false};
+const $=id=>document.getElementById(id);
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active')}
+function start(){S.start=Date.now();show('game');$('nav').style.display='grid';S.timer=setInterval(()=>{S.left--;renderTime();if(S.left<=0)timeOver()},1000)}
+function renderTime(){S.left=Math.max(0,S.left);let m=Math.floor(S.left/60),s=S.left%60;$('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');$('timer').classList.toggle('danger',S.left<=60)}
+function penalty(){S.left=Math.max(0,S.left-30);renderTime();let x=document.createElement('div');x.className='penalty';x.textContent='−30 SEC';document.body.appendChild(x);setTimeout(()=>x.remove(),900);if(S.left===0)timeOver()}
+function timeOver(){if(S.timeout)return;S.timeout=true;clearInterval(S.timer);closeM();$('nav').style.display='none';$('badStats').textContent=`단서 ${S.clues.size}/8 · 성구 ${S.verses.size}/9 · 힌트 ${S.hints}/3`;show('bad')}
+function modal(h){$('sheet').innerHTML=h;$('modal').classList.add('show')} function closeM(){$('modal').classList.remove('show')}
+function note(t){modal(`<div class="eyebrow">NOTICE</div><p class="lead">${t}</p><button class="btn" onclick="closeM()">확인</button>`)}
+function addClue(c){S.clues.add(c);update()} function verse(v){S.verses.add(v);update()}
+function update(){$('clues').textContent=S.clues.size;$('verses').textContent=S.verses.size;$('hints').textContent=S.hints;
+$('orderBtn').classList.toggle('hidden',!S.cloth||S.order);
+$('fragmentBtn').classList.toggle('hidden',!(S.order&&S.pillow)||S.fragments);
+$('lightBtn').classList.toggle('hidden',!S.fragments||S.light);
+$('finalBtn').classList.toggle('hidden',!(S.light&&S.rope));
+}
+function scripture(title,body,id,after=''){verse(id);modal(`<div class="eyebrow">성구 확인</div><h2>${title}</h2><p class="muted">${body}</p>${after}<button class="btn secondary" onclick="closeM()">기록 닫기</button>`)}
+function clothPuzzle(){modal(`<div class="eyebrow">TRICK 01 · DRAG</div><h2>젖은 천</h2><p class="muted">천이 바닥에 달라붙어 있다. 눌러도 아무 일도 일어나지 않는다.</p><div class="dragstage" id="clothStage"><div class="under">세 사람은 같은 폭풍을 보았다.<br><br>마태 · 마가 · 누가</div><div class="cloth" id="cloth">젖은 천<br><small>← 밀어 보기 →</small></div></div><button class="btn secondary" onclick="closeM()">닫기</button>`);
+dragFree($('cloth'),(x,y)=>{if(Math.abs(x)>105&&!S.cloth){S.cloth=true;addClue('세 기록');$('cloth').style.transition='.3s';$('cloth').style.transform=`translate(${x>0?240:-240}px,${y}px) rotate(8deg)`;setTimeout(()=>note('숨겨진 글씨를 발견했다. 같은 사건의 평행 기록을 비교해야 한다.'),350)}})}
+function sternPuzzle(){modal(`<div class="eyebrow">TRICK 02 · MOVE</div><h2>배 뒤쪽</h2><p class="muted">마가의 기록에만 눈에 띄는 세부사항이 있다.</p><div class="pillowstage"><div class="lock-under">◇ ○ △<br>LOCK</div><div class="pillow" id="pillow">베개<br><small>직접 움직여 보기</small></div></div><div class="choices"><button onclick="scripture('마태복음 8:23-27','예수와 제자들이 배에 오르고 폭풍을 겪는 평행 기록입니다. 예수께서 바람과 바다를 꾸짖으시고 제자들의 믿음에 대해 말씀하십니다.','mt8')">마태 기록 확인</button><button onclick="scripture('마가복음 4:35-41','같은 날 저녁 배를 타고 건너가던 중 큰 폭풍이 일어납니다. 이 기록은 예수께서 배 뒤쪽에서 베개를 베고 주무셨다는 세부사항을 알려 줍니다.','mk4')">마가 기록 확인</button><button onclick="scripture('누가복음 8:22-25','예수와 제자들이 호수 건너편으로 가던 중 폭풍을 만난 평행 기록입니다. 마지막에는 믿음에 관한 질문이 나옵니다.','lk8')">누가 기록 확인</button></div>`);
+setTimeout(()=>dragFree($('pillow'),(x,y)=>{if(Math.abs(x)>95&&!S.pillow){S.pillow=true;addClue('베개 아래 자물쇠');$('pillow').style.transition='.3s';$('pillow').style.transform=`translate(${x>0?220:-220}px,${y}px)`;setTimeout(()=>note('베개 아래에서 자물쇠를 발견했다.'),300)}}),50)}
+function orderPuzzle(){
+let items=['예수께서 건너편으로 가자고 하심','큰 폭풍이 일어남','제자들이 예수를 깨움','예수께서 바람과 바다를 꾸짖으심','바람이 가라앉음','제자들에게 믿음에 관해 질문하심'];
+modal(`<div class="eyebrow">TRICK 03 · SORT</div><h2>젖은 사건 카드</h2>
+<p class="muted">마가복음 4:35-41의 흐름대로 배열하세요.<br><b>카드를 길게 잡아 끌거나, 오른쪽 ↑ ↓ 버튼으로 이동</b>할 수 있습니다.</p>
+<div id="order" class="order">${shuffle(items).map(x=>`<div class="orderitem" data-v="${x}">
+<span class="handle">☰</span><span style="flex:1">${x}</span>
+<span style="display:flex;gap:5px"><button type="button" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#183440;color:var(--text)" onclick="moveCard(this,-1)">↑</button><button type="button" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#183440;color:var(--text)" onclick="moveCard(this,1)">↓</button></span>
+</div>`).join('')}</div>
+<button class="btn" onclick="checkOrder()">배열 확인</button>`);
+enableSortMobile()
+}
+function moveCard(btn,dir){
+ let el=btn.closest('.orderitem'), box=el.parentElement;
+ if(dir<0 && el.previousElementSibling) box.insertBefore(el,el.previousElementSibling);
+ if(dir>0 && el.nextElementSibling) box.insertBefore(el.nextElementSibling,el);
+}
+function enableSortMobile(){
+ let box=$('order'), drag=null, offsetY=0;
+ box.querySelectorAll('.orderitem').forEach(el=>{
+   el.style.userSelect='none'; el.style.webkitUserSelect='none'; el.style.touchAction='none';
+   el.addEventListener('pointerdown',e=>{
+     if(e.target.closest('button')) return;
+     drag=el; let r=el.getBoundingClientRect(); offsetY=e.clientY-r.top;
+     el.classList.add('dragging'); el.setPointerCapture(e.pointerId);
+   });
+   el.addEventListener('pointermove',e=>{
+     if(drag!==el) return;
+     e.preventDefault();
+     let target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.orderitem');
+     if(target && target!==el && target.parentElement===box){
+       let tr=target.getBoundingClientRect();
+       if(e.clientY < tr.top+tr.height/2) box.insertBefore(el,target);
+       else box.insertBefore(el,target.nextSibling);
+     }
+   });
+   el.addEventListener('pointerup',e=>{if(drag===el){el.classList.remove('dragging');drag=null}});
+   el.addEventListener('pointercancel',()=>{el.classList.remove('dragging');drag=null});
+ });
+}
+function checkOrder(){let correct=['예수께서 건너편으로 가자고 하심','큰 폭풍이 일어남','제자들이 예수를 깨움','예수께서 바람과 바다를 꾸짖으심','바람이 가라앉음','제자들에게 믿음에 관해 질문하심'];let now=[...$('order').children].map(x=>x.dataset.v);if(now.join('|')!==correct.join('|')){penalty();if(!S.timeout)note('사건 순서가 맞지 않는다. −30초');return}S.order=true;addClue('사건 순서');verse('mk35-41');closeM();note('카드 뒤쪽에서 글자가 이어진다: “뒤 · 쪽 · 을 · 보 · 라”')}
+
+function ropePuzzle(){modal(`<div class="eyebrow">TRICK 04 · SEQUENCE</div><h2>세 개의 밧줄</h2><p class="muted">사건의 흐름을 떠올리며 올바른 순서로 당겨야 한다.</p><div class="choices"><button onclick="pullRope(1)">Ⅰ · 깨우다</button><button onclick="pullRope(2)">Ⅱ · 꾸짖다</button><button onclick="pullRope(3)">Ⅲ · 고요해지다</button></div><p id="ropeState" class="notice">당긴 순서: —</p><button class="btn secondary" onclick="scripture('마가복음 4:38-39','제자들이 예수를 깨운 뒤, 예수께서 바람을 꾸짖고 바다에 조용해지라고 말씀하시자 아주 고요해집니다.','mk38')">관련 기록 확인</button>`);window.ropeSeq=[]}
+function pullRope(n){window.ropeSeq.push(n);$('ropeState').textContent='당긴 순서: '+window.ropeSeq.join(' → ');if(window.ropeSeq.length===3){if(window.ropeSeq.join('')==='123'){S.rope=true;addClue('밧줄 순서');note('철컥. 선실 쪽 잠금장치 하나가 풀렸다.')}else{penalty();window.ropeSeq=[];if(!S.timeout)note('잘못된 순서다. 밧줄이 원위치로 돌아갔다. −30초')}}}
+function fragmentPuzzle(){modal(`<div class="eyebrow">TRICK 05 · ASSEMBLE</div><h2>찢어진 기록</h2><p class="muted">조각을 점선 칸에 순서대로 끌어 놓으세요. 마가복음 4:40이 열쇠입니다.</p><div class="fragments" id="fragStage"><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+<div class="frag" data-i="2" style="left:180px;top:285px">두려워</div><div class="frag" data-i="4" style="left:15px;top:290px">아직도</div><div class="frag" data-i="1" style="left:30px;top:105px">왜 그렇게</div><div class="frag" data-i="5" style="right:20px;top:115px">믿음이</div><div class="frag" data-i="3" style="right:25px;top:285px">합니까?</div></div><button class="btn secondary" onclick="scripture('마가복음 4:40','예수께서는 제자들이 “왜 그렇게 무서워합니까? 아직도 믿음이 없습니까?”','mk40')">마가복음 4:40 확인</button><button class="btn" onclick="checkFragments()">조립 확인</button>`);setTimeout(enableFragments,50)}
+function enableFragments(){let stage=$('fragStage');stage.querySelectorAll('.frag').forEach(el=>dragWithin(el,stage))}
+function checkFragments(){let slots=[...$('fragStage').querySelectorAll('.slot')],frags=[...$('fragStage').querySelectorAll('.frag')];let ok=true;slots.forEach((sl,i)=>{let a=sl.getBoundingClientRect();let target=frags.find(f=>f.dataset.i==String(i+1));let b=target.getBoundingClientRect();if(Math.hypot((a.left+a.width/2)-(b.left+b.width/2),(a.top+a.height/2)-(b.top+b.height/2))>85)ok=false});if(!ok){penalty();if(!S.timeout)note('조각의 순서가 맞지 않는다. −30초');return}S.fragments=true;addClue('찢어진 기록');verse('mk40assemble');note('문장이 완성되자 종이 뒤에서 작은 등잔이 떨어졌다.')}
+function lightPuzzle(){modal(`<div class="eyebrow">TRICK 06 · LIGHT</div><h2>어두운 선실</h2><p class="muted">등잔을 손가락으로 움직여 어둠 속 글씨를 찾으세요.</p><div class="flashlightStage" id="lightStage"><div class="hiddenWriting">믿음은 어디에?</div><div class="darkMask" id="mask"></div><div class="lamp" id="lamp">🪔</div></div><button class="btn secondary" onclick="scripture('누가복음 8:25','폭풍이 잠잠해진 뒤 예수께서는 제자들에게 “여러분의 믿음이 어디 있습니까?”라는 취지의 질문을 하십니다.','lk25')">누가복음 8:25 확인</button><button class="btn" onclick="foundLight()">문구를 읽었다</button>`);setTimeout(()=>{let st=$('lightStage'),lamp=$('lamp'),mask=$('mask');function move(e){let r=st.getBoundingClientRect(),p=e.touches?e.touches[0]:e;let x=Math.max(0,Math.min(r.width,p.clientX-r.left)),y=Math.max(0,Math.min(r.height,p.clientY-r.top));lamp.style.left=(x-24)+'px';lamp.style.top=(y-24)+'px';lamp.style.bottom='auto';mask.style.setProperty('--x',x+'px');mask.style.setProperty('--y',y+'px')}st.addEventListener('pointermove',e=>{if(e.buttons)move(e)});st.addEventListener('touchmove',e=>{e.preventDefault();move(e)},{passive:false})},50)}
+function foundLight(){S.light=true;addClue('어둠 속 문구');verse('lk25light');note('“믿음은 어디에?” — 마지막 문을 고르는 핵심 단서일지도 모른다.')}
+function finalPuzzle(){modal(`<div class="eyebrow">FINAL LOCK</div><h2>세 개의 문</h2><p class="muted">세 평행 기록에서 폭풍이 잠잠해진 뒤 반복해서 드러나는 핵심을 선택하세요.</p><div class="choices"><button onclick="finalAnswer('힘')">A · 힘</button><button onclick="finalAnswer('믿음')">B · 믿음</button><button onclick="finalAnswer('지식')">C · 지식</button></div><div class="notice">마태복음 8:26 · 마가복음 4:40 · 누가복음 8:25를 서로 비교해 보세요.</div><button class="btn secondary" onclick="finalVerses()">세 기록 확인</button>`)}
+function finalVerses(){verse('mt26');verse('mk40final');verse('lk25final');modal(`<div class="eyebrow">PARALLEL RECORDS</div><h2>세 기록의 공통점</h2><p class="muted"><b>마태복음 8:26</b> — 두려움과 적은 믿음이 연결됩니다.<br><br><b>마가복음 4:40</b> — “왜 그렇게 무서워합니까? 아직도 믿음이 없습니까?”라는 질문이 나옵니다.<br><br><b>누가복음 8:25</b> — 제자들의 믿음이 어디 있는지 질문합니다.</p><button class="btn" onclick="closeM();finalPuzzle()">문으로 돌아가기</button>`)}
+function finalAnswer(a){if(a!=='믿음'){penalty();if(!S.timeout)note('문이 열리지 않는다. −30초');return}clearInterval(S.timer);addClue('믿음');$('nav').style.display='none';closeM();let sec=Math.floor((Date.now()-S.start)/1000),m=Math.floor(sec/60),ss=sec%60;$('clearTime').textContent=String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');$('endStats').textContent=`단서 ${S.clues.size}/8 · 성구 ${S.verses.size}/9 · 힌트 ${S.hints}/3`;show('ending')}
+function hint(){if(S.hints>=3){note('힌트는 모두 사용했습니다.');return}S.hints++;update();let t=S.hints===1?'같은 사건을 기록한 사람이 한 명뿐이었을까?':S.hints===2?'마태·마가·누가의 평행 기록을 비교하세요. 물건은 눌러보기만 하지 말고 움직여 보세요.':'핵심 범위: 마태복음 8:23-27 · 마가복음 4:35-41 · 누가복음 8:22-25';note(`HINT ${S.hints}/3<br><br>${t}`)}
+function inventory(){let a=[...S.clues];modal(`<div class="eyebrow">INVENTORY</div><h2>발견한 단서 ${a.length}/8</h2>${a.length?a.map(x=>`<div class="notice">✦ ${x}</div>`).join(''):'<p class="muted">아직 단서가 없습니다.</p>'}<button class="btn secondary" onclick="closeM()">닫기</button>`)}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function dragFree(el,done){let sx=0,sy=0,dx=0,dy=0,on=false;el.addEventListener('pointerdown',e=>{on=true;sx=e.clientX-dx;sy=e.clientY-dy;el.setPointerCapture(e.pointerId)});el.addEventListener('pointermove',e=>{if(!on)return;dx=e.clientX-sx;dy=e.clientY-sy;el.style.transform=`translate(${dx}px,${dy}px)`});el.addEventListener('pointerup',()=>{on=false;done(dx,dy)})}
+function dragWithin(el,stage){let ox=0,oy=0,on=false,sx=0,sy=0;el.addEventListener('pointerdown',e=>{on=true;sx=e.clientX-ox;sy=e.clientY-oy;el.setPointerCapture(e.pointerId);el.style.zIndex=10});el.addEventListener('pointermove',e=>{if(!on)return;ox=e.clientX-sx;oy=e.clientY-sy;el.style.transform=`translate(${ox}px,${oy}px)`});el.addEventListener('pointerup',()=>{on=false;el.style.zIndex=2})}
+</script>
+</body></html>
